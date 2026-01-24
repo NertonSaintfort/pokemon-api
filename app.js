@@ -1,47 +1,61 @@
+/*
+  
+Basic Idea:
+  The Idea of this API is to provide basic description of pokemon types
+  and names
+
+Details:
+  Shows all the pokemon types: /pokemon/types
+
+  Show All pokemon by name alphabetical /pokemon/all
+
+  //Investigate and complete
+  Show a specific pokemon with description /pokemon/name/{name}
+
+  Show all pokemon by type /pokemon/type/{type}
+
+*/
+
+//How you can run this now -> nodemon app.js
+
 const express = require("express");
 const app = express();
 const port = 3000;
 
-const POKEMON_TYPES = [
-  "Normal",
-  "Fire",
-  "Water",
-  "Electric",
-  "Grass",
-  "Ice",
-  "Fighting",
-  "Poison",
-  "Ground",
-  "Flying",
-  "Psychic",
-  "Bug",
-  "Rock",
-  "Ghost",
-  "Dragon",
-  "Dark",
-  "Steel",
-  "Fairy",
-];
+//import our pokemon data
+const { pokedex } = require("./data/pokedex.generated")
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/pokemon", (req, res) => {
-  res.send("This is a pokemon");
+app.get("/pokemon/types", (req, res) => {
+  res.send(pokedex.types)
 });
 
-app.get("/pokemon/list", (req, res) => {
-  res.send(POKEMON_TYPES);
+app.get("/pokemon/all", (req, res) => {
+  const names = [];
+  for (const id in pokedex.pokemonById) {
+    names.push(pokedex.pokemonById[id].name);
+  }
+
+  res.send(names)
 });
 
-app.get("/pokemon/type/:type/:generation", (req, res) => {
-  const { type, generation } = req.params;
-
-  res.send(
-    "This is a pokemon with type: " + type + " generation: " + generation
-  );
+app.get("/pokemon/name/:name", (req, res) => {
+  //hint: to get the name passed in you would do 
+  const {name} = req.params;
+  console.log(name);
+  return;
 });
+
+app.get("/pokemon/type/:type", (req, res) => {
+  const {type} = req.params;
+  console.log(type);
+  return;
+});
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
