@@ -34,11 +34,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/pokemon/types", (req, res) => {
-<<<<<<< HEAD
+
   res.send(pokedex.types);
-=======
   res.send(pokedex.types)
->>>>>>> a498d835a069693610f7b3cffd2070fcf95e24ed
+
 });
 
 app.get("/pokemon/all", (req, res) => {
