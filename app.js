@@ -23,21 +23,14 @@ const app = express();
 const port = 3000;
 
 //import our pokemon data
-<<<<<<< HEAD
 const { pokedex } = require("./data/pokedex.generated");
-=======
-const { pokedex } = require("./data/pokedex.generated")
->>>>>>> a498d835a069693610f7b3cffd2070fcf95e24ed
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.get("/pokemon/types", (req, res) => {
-
   res.send(pokedex.types);
-  res.send(pokedex.types)
-
 });
 
 app.get("/pokemon/all", (req, res) => {
@@ -46,7 +39,6 @@ app.get("/pokemon/all", (req, res) => {
     names.push(pokedex.pokemonById[id].name);
   }
 
-<<<<<<< HEAD
   res.send(names);
 });
 
@@ -81,25 +73,7 @@ app.get("/pokemon/type/:type", (req, res) => {
 
   // console.log(type);
   // return;
-=======
-  res.send(names)
 });
-
-app.get("/pokemon/name/:name", (req, res) => {
-  //hint: to get the name passed in you would do 
-  const {name} = req.params;
-  console.log(name);
-  return;
->>>>>>> a498d835a069693610f7b3cffd2070fcf95e24ed
-});
-
-app.get("/pokemon/type/:type", (req, res) => {
-  const {type} = req.params;
-  console.log(type);
-  return;
-});
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

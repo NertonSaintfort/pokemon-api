@@ -10,13 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "express": "^5.2.1"
-  },
-  "devDependencies": {
-=======
     "express": "^5.2.1",
->>>>>>> a498d835a069693610f7b3cffd2070fcf95e24ed
     "nodemon": "^3.1.11"
   }
 }
