@@ -29,17 +29,44 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/pokemon/types", (req, res) => {
-  res.send(pokedex.types);
-});
-
-app.get("/pokemon/all", (req, res) => {
-  const names = [];
-  for (const id in pokedex.pokemonById) {
-    names.push(pokedex.pokemonById[id].name);
+app.get("/pokemon/type/:type", (req, res) => {
+  const { type } = req.params;
+  //we want to check and make sure it's a string a not a number
+  if (type.trim() !== '' && Number.isFinite(Number(type.trim()))) {
+    return res.status(400).send({error: "Pokemon types cannot be numbers"})
   }
 
-  res.send(names);
+  const normalizedType = type.toLowerCase();
+
+  const ids = pokedex.index.byType[normalizedType];
+
+  if (!ids) {
+    return res.status(404).send({ error: "Pokemon type not found" });
+  }
+
+  const pokemonList = ids.map((id) => pokedex.pokemonById[String(id)]);
+
+  return res.send(pokemonList);
+
+  // console.log(type);
+  // return;
+});
+
+app.get("/pokemon/:info/", (req, res) => {
+  const { info } = req.params;
+  const lowerCaseInfo = info.toLowerCase();
+  if (info == "type"){
+    return res.status(200).send(pokedex.types);
+  }
+  if (info == "all"){
+    const names = [];
+    for (const id in pokedex.pokemonById) {
+      names.push(pokedex.pokemonById[id].name);
+    }
+    return res.status(200).send(names);
+  }
+
+  return res.status(400).send({error: "Incorrect value sent"})
 });
 
 app.get("/pokemon/name/:name", (req, res) => {
@@ -57,24 +84,34 @@ app.get("/pokemon/name/:name", (req, res) => {
   res.status(404).send({ error: "Pokemon not found" });
 });
 
-app.get("/pokemon/type/:type", (req, res) => {
-  const { type } = req.params;
-  const normalizedType = type.toLowerCase();
 
-  const ids = pokedex.index.byType[normalizedType];
-
-  if (!ids) {
-    return res.status(404).send({ error: "Pokemon type not found" });
-  }
-
-  const pokemonList = ids.map((id) => pokedex.pokemonById[String(id)]);
-
-  res.send(pokemonList);
-
-  // console.log(type);
-  // return;
-});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+/*
+  REST requests to servers usually have a series of responses. 
+  To try and create some type of consistency, long ago we created
+  a list of "statuses" or codes that REST servers/apis should return
+
+  200 - OK
+  201 - Created
+
+  301 - Moved Permanently
+  308 - Permanent Redirect
+
+  400 - Bad Request
+  401 - Unauthorized
+  403 - Forbidden
+  404 - Not Found
+
+  500 - Internal Server Error
+  501 - Not Implemented
+  502 - Bad Gateway
+  503 - Service Unavailable
+
+
+
+  https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+*/
