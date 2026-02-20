@@ -25,6 +25,13 @@ const port = 3000;
 //import our pokemon data
 const { pokedex } = require("./data/pokedex.generated");
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/pokemon", (req, res) => {
+  res.redirect("/pokemon/all");
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

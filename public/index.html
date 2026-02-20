@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokédex</title>
+
+    <!-- QUESTION 1:
+         How do you correctly link an external CSS file
+         that lives in the same "public" folder?
+         (Hint: Express static middleware)
+    -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- QUESTION 2:
+         Why is this "ui-bg" wrapper needed for the layout?
+         What visual effect does it provide based on the CSS?
+    -->
+    <div class="ui-bg">
+      <div class="app-shell">
+        <!-- ================= HEADER ================= -->
+        <header class="app-header">
+          <!-- QUESTION 3:
+               What is the purpose of this "brand" div?
+               How could you make it clickable later?
+          -->
+
+          <a href="/"><div class="brand">Pokédex</div></a>
+
+          <!-- QUESTION 4:
+               This is the ONLY search bar in the app.
+               What API endpoints should this input talk to?
+               (List at least two.)
+          -->
+          <div class="header-search">
+            <span class="icon">🔎</span>
+
+            <!-- QUESTION 5:
+                 What JavaScript event should be listened to
+                 so searching only triggers when the user is done typing?
+            -->
+            <input
+              id="globalSearch"
+              type="search"
+              placeholder="Search Pokémon… Try: Pikachu"
+            />
+          </div>
+
+          <!-- QUESTION 6:
+               Why should API status live in the header instead of main content?
+          -->
+          <div class="header-right">
+            <div class="api-status" id="apiStatus">
+              <span class="dot"></span>
+              <span id="apiStatusText">API Online</span>
+            </div>
+
+            <!-- QUESTION 7:
+                 Where should the current theme (light/dark)
+                 be stored so it persists across reloads?
+            -->
+            <button class="icon-btn" id="themeToggle">🌙</button>
+          </div>
+        </header>
+
+        <div class="app-body">
+          <!-- ================= SIDEBAR ================= -->
+          <aside class="sidebar">
+            <nav class="nav-group">
+              <!-- QUESTION 8:
+                   What does the "active" class visually indicate?
+                   When should it change?
+              -->
+              <a class="nav-item active" href="#browse">
+                <span class="nav-icon">⬤</span>
+                <span>Browse All</span>
+              </a>
+
+              <a class="nav-item" href="#types">
+                <span class="nav-icon">⬤</span>
+                <span>Pokémon Types</span>
+              </a>
+
+              <!-- QUESTION 9:
+                   What kind of information belongs in
+                   an "About / API Status" section?
+              -->
+              <a class="nav-item" href="#about">
+                <span class="nav-icon">i</span>
+                <span>About / API Status</span>
+              </a>
+            </nav>
+          </aside>
+
+          <!-- ================= MAIN ================= -->
+          <main class="main">
+            <!-- ================= HERO ================= -->
+            <section class="hero" id="about">
+              <!-- QUESTION 10:
+                   Why does this section NOT include a search bar?
+              -->
+              <h1>Welcome to the Pokédex!</h1>
+              <p>Search for Pokémon and explore their types.</p>
+
+              <div class="action-row">
+                <!-- QUESTION 11:
+                     What API endpoint should this button trigger?
+                -->
+                <button class="action-card" id="browseAction" type="button">
+                  <div class="badge">🧭</div>
+                  <p class="title">Browse All Pokémon</p>
+                </button>
+
+                <!-- QUESTION 12:
+                     What data structure does this endpoint return?
+                     (Array of strings? Objects?)
+                -->
+                <div class="action-card" id="typesAction">
+                  <div class="badge">🧩</div>
+                  <p class="title">Explore by Type</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================= TRENDING ================= -->
+            <section class="section">
+              <!-- QUESTION 13:
+                   Why should "Trending" NOT be hardcoded forever?
+              -->
+              <div class="section-title">
+                <span>Trending Pokémon</span>
+                <span class="muted">Randomized</span>
+              </div>
+
+              <!-- QUESTION 14:
+                   Describe one algorithm to populate these cards
+                   using ONLY your existing API.
+              -->
+              <div class="card-grid" id="trendingGrid">
+                <!-- Intentionally empty -->
+                <article class="poke-card">
+                  <div class="img"></div>
+                  <div class="body">
+                    <p class="name">Pokemon Name</p>
+
+                    <div class="type-row">
+                      <span class="pill fire">Fire</span>
+                      <span class="pill flying">Flying</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- ================= TYPES ================= -->
+            <section class="section" id="types">
+              <!-- QUESTION 15:
+                   Which endpoint gives you the list of types?
+              -->
+              <div class="section-title">
+                <span>Explore Pokémon Types</span>
+              </div>
+
+              <!-- QUESTION 16:
+                   What event should each type button listen for?
+              -->
+
+              <div class="type-grid" id="typeGrid">
+                <!-- Dynamically generated -->
+                <!-- <button class="type-btn" data-type="TYPE_NAME">
+                  <span class="pill TYPE_NAME">TYPE_NAME</span>
+                </button>
+                <button class="type-btn" data-type="fire" type="button">
+                  <span class="pill fire" style="height: 26px">Fire</span>
+                </button> -->
+                <button class="type-btn fire" data-type="fire" type="button">
+                  <span class="type-icon" aria-hidden="true">🔥</span>
+                  <span class="type-label">Fire</span>
+                </button>
+
+                <button class="type-btn water" data-type="water" type="button">
+                  <span class="type-icon" aria-hidden="true">💧</span>
+                  <span class="type-label">Water</span>
+                </button>
+
+                <button class="type-btn grass" data-type="grass" type="button">
+                  <span class="type-icon" aria-hidden="true">🌿</span>
+                  <span class="type-label">Grass</span>
+                </button>
+
+                <button
+                  class="type-btn electric"
+                  data-type="electric"
+                  type="button"
+                >
+                  <span class="type-icon" aria-hidden="true">⚡</span>
+                  <span class="type-label">Electric</span>
+                </button>
+
+                <button
+                  class="type-btn psychic"
+                  data-type="psychic"
+                  type="button"
+                >
+                  <span class="type-icon">🔮</span>
+                  <span class="type-label">Psychic</span>
+                </button>
+
+                <button
+                  class="type-btn fighting"
+                  data-type="fighting"
+                  type="button"
+                >
+                  <span class="type-icon">🥊</span>
+                  <span class="type-label">Fighting</span>
+                </button>
+
+                <button class="type-btn ghost" data-type="ghost" type="button">
+                  <span class="type-icon">👻</span>
+                  <span class="type-label">Ghost</span>
+                </button>
+
+                <button
+                  class="type-btn dragon"
+                  data-type="dragon"
+                  type="button"
+                >
+                  <span class="type-icon">🐉</span>
+                  <span class="type-label">Dragon</span>
+                </button>
+
+                <button class="type-btn dark" data-type="dark" type="button">
+                  <span class="type-icon">🌑</span>
+                  <span class="type-label">Dark</span>
+                </button>
+
+                <button class="type-btn fairy" data-type="fairy" type="button">
+                  <span class="type-icon">💖</span>
+                  <span class="type-label">Fairy</span>
+                </button>
+
+                <button
+                  class="type-btn normal"
+                  data-type="normal"
+                  type="button"
+                >
+                  <span class="type-icon">⚪</span>
+                  <span class="type-label">Normal</span>
+                </button>
+
+                <button
+                  class="type-btn flying"
+                  data-type="flying"
+                  type="button"
+                >
+                  <span class="type-icon">🕊️</span>
+                  <span class="type-label">Flying</span>
+                </button>
+
+                <button
+                  class="type-btn poison"
+                  data-type="poison"
+                  type="button"
+                >
+                  <span class="type-icon">☠️</span>
+                  <span class="type-label">Poison</span>
+                </button>
+
+                <button class="type-btn ice" data-type="ice" type="button">
+                  <span class="type-icon">❄️</span>
+                  <span class="type-label">Ice</span>
+                </button>
+
+                <button
+                  class="type-btn ground"
+                  data-type="ground"
+                  type="button"
+                >
+                  <span class="type-icon">⛰️</span>
+                  <span class="type-label">Ground</span>
+                </button>
+
+                <button class="type-btn rock" data-type="rock" type="button">
+                  <span class="type-icon">🪨</span>
+                  <span class="type-label">Rock</span>
+                </button>
+
+                <button class="type-btn bug" data-type="bug" type="button">
+                  <span class="type-icon">🐛</span>
+                  <span class="type-label">Bug</span>
+                </button>
+
+                <button class="type-btn steel" data-type="steel" type="button">
+                  <span class="type-icon">⚙️</span>
+                  <span class="type-label">Steel</span>
+                </button>
+              </div>
+            </section>
+
+            <!-- ================= BROWSE ================= -->
+            <section class="section" id="browse">
+              <!-- QUESTION 17:
+                   What’s the difference between "Browse All"
+                   and "Search" from a UX standpoint?
+              -->
+              <div class="section-title">
+                <span>Browse All</span>
+                <span class="muted">Names only</span>
+              </div>
+
+              <!-- QUESTION 18:
+                   Why might rendering ONLY names be faster
+                   than rendering full Pokémon cards?
+              -->
+              <div id="browseList">
+                <!-- Populated from /pokemon/all -->
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTION 19:
+         Why is it better to move this script
+         into a separate JS file later?
+    -->
+    <script>
+      // Intentionally minimal — logic comes later
+    </script>
+  </body>
+</html>
