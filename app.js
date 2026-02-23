@@ -32,15 +32,15 @@ app.get("/pokemon", (req, res) => {
   res.redirect("/pokemon/all");
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 
 app.get("/pokemon/type/:type", (req, res) => {
   const { type } = req.params;
   //we want to check and make sure it's a string a not a number
-  if (type.trim() !== '' && Number.isFinite(Number(type.trim()))) {
-    return res.status(400).send({error: "Pokemon types cannot be numbers"})
+  if (type.trim() !== "" && Number.isFinite(Number(type.trim()))) {
+    return res.status(400).send({ error: "Pokemon types cannot be numbers" });
   }
 
   const normalizedType = type.toLowerCase();
@@ -62,10 +62,10 @@ app.get("/pokemon/type/:type", (req, res) => {
 app.get("/pokemon/:info/", (req, res) => {
   const { info } = req.params;
   const lowerCaseInfo = info.toLowerCase();
-  if (info == "type"){
+  if (info == "type") {
     return res.status(200).send(pokedex.types);
   }
-  if (info == "all"){
+  if (info == "all") {
     const names = [];
     for (const id in pokedex.pokemonById) {
       names.push(pokedex.pokemonById[id].name);
@@ -73,7 +73,7 @@ app.get("/pokemon/:info/", (req, res) => {
     return res.status(200).send(names);
   }
 
-  return res.status(400).send({error: "Incorrect value sent"})
+  return res.status(400).send({ error: "Incorrect value sent" });
 });
 
 app.get("/pokemon/name/:name", (req, res) => {
@@ -90,8 +90,6 @@ app.get("/pokemon/name/:name", (req, res) => {
   // return;
   res.status(404).send({ error: "Pokemon not found" });
 });
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
