@@ -156,164 +156,29 @@
 
             <!-- ================= TYPES ================= -->
             <section class="section" id="types">
-              <!-- QUESTION 15:
-                   Which endpoint gives you the list of types?
-              -->
               <div class="section-title">
                 <span>Explore Pokémon Types</span>
               </div>
-
-              <!-- QUESTION 16:
-                   What event should each type button listen for?
-              -->
-
               <div class="type-grid" id="typeGrid">
-                <!-- Dynamically generated -->
-                <!-- <button class="type-btn" data-type="TYPE_NAME">
-                  <span class="pill TYPE_NAME">TYPE_NAME</span>
-                </button>
-                <button class="type-btn" data-type="fire" type="button">
-                  <span class="pill fire" style="height: 26px">Fire</span>
-                </button> -->
-                <button class="type-btn fire" data-type="fire" type="button">
-                  <span class="type-icon" aria-hidden="true">🔥</span>
-                  <span class="type-label">Fire</span>
-                </button>
-
-                <button class="type-btn water" data-type="water" type="button">
-                  <span class="type-icon" aria-hidden="true">💧</span>
-                  <span class="type-label">Water</span>
-                </button>
-
-                <button class="type-btn grass" data-type="grass" type="button">
-                  <span class="type-icon" aria-hidden="true">🌿</span>
-                  <span class="type-label">Grass</span>
-                </button>
-
-                <button
-                  class="type-btn electric"
-                  data-type="electric"
-                  type="button"
-                >
-                  <span class="type-icon" aria-hidden="true">⚡</span>
-                  <span class="type-label">Electric</span>
-                </button>
-
-                <button
-                  class="type-btn psychic"
-                  data-type="psychic"
-                  type="button"
-                >
-                  <span class="type-icon">🔮</span>
-                  <span class="type-label">Psychic</span>
-                </button>
-
-                <button
-                  class="type-btn fighting"
-                  data-type="fighting"
-                  type="button"
-                >
-                  <span class="type-icon">🥊</span>
-                  <span class="type-label">Fighting</span>
-                </button>
-
-                <button class="type-btn ghost" data-type="ghost" type="button">
-                  <span class="type-icon">👻</span>
-                  <span class="type-label">Ghost</span>
-                </button>
-
-                <button
-                  class="type-btn dragon"
-                  data-type="dragon"
-                  type="button"
-                >
-                  <span class="type-icon">🐉</span>
-                  <span class="type-label">Dragon</span>
-                </button>
-
-                <button class="type-btn dark" data-type="dark" type="button">
-                  <span class="type-icon">🌑</span>
-                  <span class="type-label">Dark</span>
-                </button>
-
-                <button class="type-btn fairy" data-type="fairy" type="button">
-                  <span class="type-icon">💖</span>
-                  <span class="type-label">Fairy</span>
-                </button>
-
-                <button
-                  class="type-btn normal"
-                  data-type="normal"
-                  type="button"
-                >
-                  <span class="type-icon">⚪</span>
-                  <span class="type-label">Normal</span>
-                </button>
-
-                <button
-                  class="type-btn flying"
-                  data-type="flying"
-                  type="button"
-                >
-                  <span class="type-icon">🕊️</span>
-                  <span class="type-label">Flying</span>
-                </button>
-
-                <button
-                  class="type-btn poison"
-                  data-type="poison"
-                  type="button"
-                >
-                  <span class="type-icon">☠️</span>
-                  <span class="type-label">Poison</span>
-                </button>
-
-                <button class="type-btn ice" data-type="ice" type="button">
-                  <span class="type-icon">❄️</span>
-                  <span class="type-label">Ice</span>
-                </button>
-
-                <button
-                  class="type-btn ground"
-                  data-type="ground"
-                  type="button"
-                >
-                  <span class="type-icon">⛰️</span>
-                  <span class="type-label">Ground</span>
-                </button>
-
-                <button class="type-btn rock" data-type="rock" type="button">
-                  <span class="type-icon">🪨</span>
-                  <span class="type-label">Rock</span>
-                </button>
-
-                <button class="type-btn bug" data-type="bug" type="button">
-                  <span class="type-icon">🐛</span>
-                  <span class="type-label">Bug</span>
-                </button>
-
-                <button class="type-btn steel" data-type="steel" type="button">
-                  <span class="type-icon">⚙️</span>
-                  <span class="type-label">Steel</span>
-                </button>
+                <!-- Dynamically generated by loadTypes() -->
               </div>
+            </section>
+
+            <!-- ================= TYPE RESULTS ================= -->
+            <section class="section" id="typeResults">
+              <div class="section-title">
+                <span id="typeResultsTitle">Type Results</span>
+                <span class="muted" id="typeResultsMeta">Click a type to load Pokémon</span>
+              </div>
+              <div class="card-grid" id="typeResultsGrid"></div>
             </section>
 
             <!-- ================= BROWSE ================= -->
             <section class="section" id="browse">
-              <!-- QUESTION 17:
-                   What’s the difference between "Browse All"
-                   and "Search" from a UX standpoint?
-              -->
               <div class="section-title">
                 <span>Browse All</span>
                 <span class="muted">Names only</span>
               </div>
-
-              <!-- QUESTION 18:
-                   Why might rendering ONLY names be faster
-                   than rendering full Pokémon cards?
-              -->
               <div id="browseList">
                 <!-- Populated from /pokemon/all -->
               </div>
